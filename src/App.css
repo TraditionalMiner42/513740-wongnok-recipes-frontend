@@ -1,0 +1,44 @@
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.success-message,
+.error-message {
+    position: fixed;
+    top: 20px;
+    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 400px;
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 20px;
+}
+
+.flex-space-item.ant-space-item {
+    flex: 1;
+}

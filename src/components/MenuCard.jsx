@@ -1,10 +1,11 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Card, List, Typography, Tag, Modal } from "antd";
+import { Card, List, Typography, Tag, Modal, Button, Rate } from "antd";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Rating from "./Rating";
 const { Title, Text } = Typography;
 
-const MenuCard = ({ menu, showDelete = false, onDelete }) => {
+const MenuCard = ({ menu, showDelete = false, onDelete, authUser = null }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const showModal = () => {
@@ -24,6 +25,14 @@ const MenuCard = ({ menu, showDelete = false, onDelete }) => {
     const handleCancel = (e) => {
         console.log(e);
         setModalVisible(false);
+    };
+
+    // const avgRating = calculateAverageRating(menu.ratings);
+
+    const calculateAverageRating = (ratings) => {
+        if (!ratings || ratings.length === 0) return 0;
+        const total = ratings.reduce((acc, cur) => acc + cur.rating_number, 0);
+        return total / ratings.length;
     };
 
     return (
@@ -81,6 +90,29 @@ const MenuCard = ({ menu, showDelete = false, onDelete }) => {
                         <Tag color="green" style={{ fontSize: 14 }}>
                             💪 {menu.difficulty}
                         </Tag>
+                        <div
+                            style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                                marginLeft: "8px"
+                            }}>
+                            {menu.ratings && menu.ratings.length > 0 ? (
+                                <>
+                                    <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+                                        {calculateAverageRating(menu.ratings).toFixed(1)}
+                                    </Text>
+                                    <Rate
+                                        disabled
+                                        allowHalf
+                                        value={calculateAverageRating(menu.ratings)}
+                                        style={{ fontSize: 14 }}
+                                    />
+                                </>
+                            ) : (
+                                <Text style={{ fontSize: 14, color: "#999" }}>No rating</Text>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -110,7 +142,6 @@ const MenuCard = ({ menu, showDelete = false, onDelete }) => {
                             </List.Item>
                         )}
                     />
-
                     <Title level={4} style={{ margin: "16px 0 6px", fontSize: 16 }}>
                         👨‍🍳 Steps
                     </Title>
@@ -126,6 +157,7 @@ const MenuCard = ({ menu, showDelete = false, onDelete }) => {
                             </List.Item>
                         )}
                     />
+                    <Rating menu={menu} authUser={authUser} />
                 </div>
             </Card>
             <Modal

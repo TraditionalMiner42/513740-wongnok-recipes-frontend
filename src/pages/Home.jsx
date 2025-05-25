@@ -13,7 +13,7 @@ const Homepage = () => {
 
     const getAllUsersMenu = async () => {
         try {
-            console.log(authUser);
+            console.log("auth user: ", authUser);
             try {
                 const response = await axios.get("http://localhost:4000/menu/get-users-menu");
                 console.log(response.data);
@@ -41,7 +41,12 @@ const Homepage = () => {
                         {filteredMenus.map((menu) => {
                             return (
                                 <>
-                                    <MenuCard menu={menu} key={menu.menu_id} />
+                                    <MenuCard
+                                        menu={menu}
+                                        key={menu.menu_id}
+                                        onDelete={getAllUsersMenu}
+                                        authUser={authUser}
+                                    />
                                 </>
                             );
                         })}

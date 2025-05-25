@@ -3,6 +3,7 @@ import { Menu } from "antd";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "antd";
 
 const Navbar = () => {
     const [current, setCurrent] = useState("/");

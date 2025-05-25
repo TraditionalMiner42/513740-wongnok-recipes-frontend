@@ -22,8 +22,14 @@ const MenuList = () => {
     };
 
     useEffect(() => {
-        getUserMenu();
-    }, []);
+        if (authUser) {
+            getUserMenu();
+        }
+    }, [authUser]);
+
+    if (!authUser) {
+        return <div>Loading user data...</div>;
+    }
 
     return (
         <>
@@ -37,6 +43,7 @@ const MenuList = () => {
                                     key={menu.menu_id}
                                     showDelete={true}
                                     onDelete={getUserMenu}
+                                    authUser={authUser}
                                 />
                             </>
                         );

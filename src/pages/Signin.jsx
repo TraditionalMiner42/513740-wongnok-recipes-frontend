@@ -4,7 +4,9 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Typography } from "antd";
 import Password from "antd/es/input/Password.js";
+const { Title } = Typography;
 
 const SigninPage = () => {
     const [form] = Form.useForm();
@@ -63,6 +65,9 @@ const SigninPage = () => {
             )}
             <div className="form-container">
                 <Form form={form} onFinish={onFinish} style={{ width: 400 }}>
+                    <Form.Item>
+                        <Title style={{ fontWeight: 300 }}>Wongnok Recipes</Title>
+                    </Form.Item>
                     <FormItem
                         name="username"
                         rules={[{ required: true, message: "Please input your username!" }]}>
